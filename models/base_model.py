@@ -11,7 +11,7 @@ class BaseModel(pw.Model):
     def save(self, *args, **kwargs):
         self.errors = []
         self.validate()
-
+        print(self.errors)
         if len(self.errors) == 0:
             self.updated_at = datetime.datetime.now()
             return super(BaseModel, self).save(*args, **kwargs)
