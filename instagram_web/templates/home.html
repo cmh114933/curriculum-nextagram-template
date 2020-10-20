@@ -9,4 +9,13 @@
 
 {% block content %}
   <h1>Homepage</h1>
+
+  {% if current_user.is_authenticated %}
+    <h3>Current User : {{current_user.username}}</h3>
+    <form action="{{url_for('sessions.destroy')}}" method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+      <input type="submit" class="btn btn-danger" value="Signout">
+    </form>
+  {% endif %}
+
 {% endblock %}
