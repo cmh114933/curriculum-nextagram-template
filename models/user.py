@@ -3,22 +3,28 @@ import peewee as pw
 from werkzeug.security import generate_password_hash
 import re
 from flask_login import UserMixin
-
+from playhouse.hybrid import hybrid_property
 
 class User(BaseModel, UserMixin):
     username = pw.CharField(unique=True)
     email = pw.CharField(unique=True)
     password_hash = pw.CharField(unique=False)
+    image_path= pw.CharField(null=True)
     password=None
+
+    @hybrid_property
+    def profile_image_path(self):
+        from app import app
+        return app.config.get("AWS_S3_DOMAIN") + self.image_path
 
     def validate(self):
         existing_email = User.get_or_none(User.email == self.email)
         existing_username = User.get_or_none(User.username == self.username)
         print("User validation in process")
-        if existing_email:
+        if existing_email and self.id != existing_email.id:
             self.errors.append("Email must be unique")
         
-        if existing_username:
+        if existing_username  and self.id != existing_username.id:
             self.errors.append("Username must be unique")
 
         if self.password:

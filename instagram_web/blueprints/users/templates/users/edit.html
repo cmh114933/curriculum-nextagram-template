@@ -1,0 +1,25 @@
+<h1>Edit User: User Id {{id}}</h1>
+<form method="POST" action="{{url_for('users.update', id=id)}}">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  <label>Username</label>
+  <input type="text" name="username"  value="{{user.username}}"/>
+  <label>Email</label>
+  <input type="text" name="email"  value="{{user.email}}"/>
+  <label>New Password</label>
+  <input type="password" name="password" />
+  <label>Confirmation Password</label>
+  <input type="password" name="old_password" />
+  <input type="submit" />
+</form>
+
+<h1>Upload Profile Image</h1>
+
+<form action="{{url_for('users.upload_profile', id=id)}}" method="POST" enctype="multipart/form-data">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  <label for="user_file">Upload Your Profile Image</label>
+  <br></br>
+  <input type="file" name="profile_image">
+  <br></br>
+  <button type="submit">Upload</button>
+
+</form>
