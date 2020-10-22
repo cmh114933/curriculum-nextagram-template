@@ -7,12 +7,12 @@ s3 = boto3.client(
   aws_secret_access_key=app.config.get("S3_SECRET")
 )
 
-def upload_to_s3(file, acl="public-read"):
+def upload_to_s3(file, folder_name, acl="public-read"):
   try:
     s3.upload_fileobj(
       file,
       app.config.get("S3_BUCKET"),
-      file.filename,
+      f"user-{folder_name}/{file.filename}",
       ExtraArgs={
         "ACL": acl,
         "ContentType": file.content_type
@@ -24,5 +24,5 @@ def upload_to_s3(file, acl="public-read"):
     print("Something Happened: ", e)
     return e
 
-  return file.filename
+  return f"user-{folder_name}/{file.filename}"
   

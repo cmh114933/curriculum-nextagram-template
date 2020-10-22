@@ -1,5 +1,9 @@
 <h1>User Profile: {{user.id}}</h1>
-<img src="{{user.profile_image_path}}" />
+<img src="{{user.profile_image_path}}" width="200px" />
 
 <h4>Username: {{user.username}}</h4>
 <h4>Email: {{user.email}}</h4>
+
+{% for image in images %}
+    <img src="{{image.full_image_url}}" width="200px" />
+{% endfor %}
