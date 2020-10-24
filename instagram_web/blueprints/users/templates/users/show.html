@@ -5,5 +5,14 @@
 <h4>Email: {{user.email}}</h4>
 
 {% for image in images %}
-    <img src="{{image.full_image_url}}" width="200px" />
+    <div>
+        <img src="{{image.full_image_url}}" width="200px" />
+        <p>Total Donated Amount: {{image.donations_sum}}</p>
+        <ul>
+            {% for d in image.donations %}
+                <li>{{d.user.username}} : {{d.amount}}</li>
+            {% endfor%}
+        </ul>
+        <a href="{{url_for('transactions.new', image_id=image.id)}}" >Donate </a>
+    </div>
 {% endfor %}

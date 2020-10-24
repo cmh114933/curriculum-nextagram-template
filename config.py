@@ -11,6 +11,14 @@ class Config(object):
     S3_SECRET                 = os.environ.get("S3_SECRET_KEY")
     AWS_S3_DOMAIN             = 'http://{}.s3.amazonaws.com/'.format(S3_BUCKET)
 
+    BT_MERCHANT_ID            = os.environ.get("BT_MERCHANT_ID")
+    BT_KEY                    = os.environ.get("BT_KEY")
+    BT_SECRET                 = os.environ.get("BT_SECRET")
+    MAILGUN_API               = os.environ.get("MAILGUN_API")
+
+    GOOGLE_CLIENT_ID          = os.environ.get("GOOGLE_CLIENT_ID")
+    GOOGLE_CLIENT_SECRET      = os.environ.get("GOOGLE_CLIENT_SECRET")
+
 class ProductionConfig(Config):
     DEBUG = False
     ASSETS_DEBUG = False
