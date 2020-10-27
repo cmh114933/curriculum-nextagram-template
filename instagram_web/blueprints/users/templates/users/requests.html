@@ -1,0 +1,23 @@
+<h1>Idols Request</h1>
+{% for idol in current_user.idol_requests %}
+    <li>
+        {{idol.username}}
+        <form action="{{url_for('users.unfollow', idol_id=idol.id)}}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <input type="submit" value="Delete Request">
+        </form>
+    </li>
+{% endfor %}
+
+
+
+<h1>Fans Request</h1>
+{% for fan in current_user.fan_requests %}
+    <li>
+        {{fan.username}}
+        <form action="{{url_for('users.approve', fan_id=fan.id)}}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <input type="submit" value="Approve">
+        </form>
+    </li>
+{% endfor %}

@@ -111,3 +111,41 @@ def upload_profile(id):
 # def allowed_file(filename):
 #     return '.' in filename and \
 #            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@users_blueprint.route('/<idol_id>/follow', methods=['POST'])
+@login_required
+def follow(idol_id):
+    idol = User.get_by_id(idol_id)
+
+    if current_user.follow(idol):
+        # flash message
+        return redirect(url_for('users.show', username=idol.username))
+    else:
+        return redirect(url_for('users.show', username=current_user.username))
+
+@users_blueprint.route('/<idol_id>/unfollow', methods=['POST'])
+@login_required
+def unfollow(idol_id):
+    idol = User.get_by_id(idol_id)
+
+    if current_user.unfollow(idol):
+        return redirect(url_for('users.show', username=idol.username))
+    else:
+        return redirect(url_for('users.show', username=current_user.username))
+
+
+@users_blueprint.route('/follows/requests', methods=['GET'])
+@login_required
+def requests():
+    return render_template('users/requests.html')
+
+
+@users_blueprint.route('/<fan_id>/approve', methods=['POST'])
+@login_required
+def approve(fan_id):
+    fan = User.get_by_id(fan_id)
+    if current_user.approve(fan):
+        return redirect(url_for('users.requests'))
+    else:
+        return redirect(url_for('users.requests'))
+

@@ -8,7 +8,10 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Homepage</h1>
+<h1>Homepage</h1>
+  {% for image in current_user.image_feed %}
+    <img src="{{image.full_image_url}}" alt="" width="300px">
+  {% endfor %}
 
   {% if current_user.is_authenticated %}
     <h3>Current User : {{current_user.username}}</h3>

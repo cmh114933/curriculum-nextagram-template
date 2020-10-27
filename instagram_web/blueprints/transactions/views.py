@@ -25,14 +25,14 @@ def create(image_id):
   if type(result) == SuccessfulResult:
     new_transaction = Transaction(amount=data.get("amount"), image=image, user_id=current_user.id)
     if new_transaction.save():
-      from app import app
-      requests.post(
-        "https://api.mailgun.net/v3/sandboxc2532b7ddfbc4302aa61f8c427bf85d1.mailgun.org/messages",
-        auth=("api", app.config.get("MAILGUN_API") ),
-        data={"from": "Mailgun Sandbox <postmaster@sandboxc2532b7ddfbc4302aa61f8c427bf85d1.mailgun.org>",
-          "to": "Ming Hao Chan <minghaochan.2018@gmail.com>",
-          "subject": "Hello Ming Hao Chan",
-          "text": "Successfully received a donation"})
+      # from app import app
+      # requests.post(
+      #   "https://api.mailgun.net/v3/sandboxc2532b7ddfbc4302aa61f8c427bf85d1.mailgun.org/messages",
+      #   auth=("api", app.config.get("MAILGUN_API") ),
+      #   data={"from": "Mailgun Sandbox <postmaster@sandboxc2532b7ddfbc4302aa61f8c427bf85d1.mailgun.org>",
+      #     "to": "Ming Hao Chan <minghaochan.2018@gmail.com>",
+      #     "subject": "Hello Ming Hao Chan",
+      #     "text": "Successfully received a donation"})
 
       return redirect(url_for("users.show", username=image.user.username ))
     else:
